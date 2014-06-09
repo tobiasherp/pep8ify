@@ -11,12 +11,12 @@ class FixMissingWhitespace(BaseFix):
     '''
 
     def match(self, node):
-        if (node.type in (token.COLON, token.COMMA, token.SEMI) and node.
-            get_suffix() != " "):
+        if (node.type in (token.COLON, token.COMMA, token.SEMI) and
+            node.get_suffix() != " "):
             # If there is a newline after, no space
             if (node.get_suffix().find('\n') == 0 or
                 (node.next_sibling and node.next_sibling.children and
-                node.next_sibling.children[0] == Newline())):
+                 node.next_sibling.children[0] == Newline())):
                 return False
             # If we are using slice notation, no space necessary
             if node.parent.type in [symbols.subscript, symbols.sliceop]:
